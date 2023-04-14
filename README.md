@@ -51,7 +51,7 @@ const config: ObservareConfig = {
     eager: false, // don't do `eager` in production
     maxLogs: 15, // defaults to 15
     isSupabase: true,
-    uniqueId: getUserEmail(), // get the user's email.
+    uniqueId: getUserEmail(), // get the user's email. if left blank a random UUID will be generated that persists
     supabaseConfig: {
         url: '<supabase url>',
         key: '<supabase key>',
