@@ -18,6 +18,7 @@
   "files": [
     "/dist"
   ],
+  "readme": "README.md",
   "contributors": [
     "Imon Kalyan Roy <imon@ikr.one> (https://github.com/unownone)",
     "Shreyam Maity (https://rey.dev)"
