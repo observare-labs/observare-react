@@ -2,7 +2,7 @@
   "name": "observare-react",
   "private": false,
   "description": "A react performance Monitoring Tool!",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,6 @@
   "files": [
     "/dist"
   ],
-  "readme": "./readme.md",
   "contributors": [
     "Imon Kalyan Roy <imon@ikr.one> (https://github.com/unownone)",
     "Shreyam Maity (https://rey.dev)"
