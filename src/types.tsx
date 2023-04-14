@@ -55,6 +55,7 @@ export interface BrowserLogger {
  * @param domain The domain of the log
  */
 export interface BrowserLog {
+  uniqueId: string;
   time: Date;
   phase: String;
   actualDuration: number;
@@ -69,10 +70,12 @@ export interface BrowserLog {
  * Observare Props Interface: This is the interface for the Observare props
  * @param config The Observare config
  * @param children The children of the Observare component. Any component that needs to be logged should be wrapped in this component
+ * @param uniqueId The unique ID of the user. This is used to identify the user in the Observare API
  */
 export interface ObservareProps {
   config: ObservareConfig;
   children: JSX.Element;
+  uniqueId?: string;
 }
 
 /**

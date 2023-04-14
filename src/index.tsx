@@ -9,6 +9,7 @@ import {
   ObservareProps,
   SupabaseConfig,
 } from "./types";
+import { v4 as UUID } from "uuid";
 
 /**
  * Observare Client
@@ -23,7 +24,7 @@ class ObservareClient extends React.Component<ObservareProps, any> {
   config: ObservareConfig;
   children: JSX.Element;
   logSender: BrowserLogger;
-
+  uniqueId: string; // Unique ID for the client
   /**
    * Constructor for Observare Client
    * @param props Observare Props
@@ -36,8 +37,27 @@ class ObservareClient extends React.Component<ObservareProps, any> {
     this.logSender = this.config.isSupabase
       ? new SupabaseBrowserLogger(this.config, this.config.supabaseConfig!)
       : new BrowserLoggerAPI(this.config);
+    this.uniqueId = props.uniqueId ? props.uniqueId : UUID();
   }
 
+  /**
+   * Sets the uniqueID of the user for the client.
+   * This is also saved in localstorage for future identification
+   * @param uniqueId Unique ID of the user
+   */
+  setUniqueId(uniqueId?: string) {
+    let unique_id =
+      localStorage.getItem("observare_uniqueId") || uniqueId || UUID(); // Get uniqueId from localstorage
+    if (unique_id) {
+      return unique_id; // If uniqueId is already present in localstorage, use that
+    }
+
+    if (uniqueId) unique_id = uniqueId; // If uniqueId is provided, use that
+    else unique_id = UUID(); // If uniqueId is not provided, generate a new one
+
+    localStorage.setItem("observare_uniqueId", unique_id); // Save uniqueId in localstorage
+    return unique_id;
+  }
   /**
    *
    * @param config  User provided Config
@@ -77,6 +97,7 @@ class ObservareClient extends React.Component<ObservareProps, any> {
       interactions: Set<Interaction>
     ) => {
       let log: BrowserLog = {
+        uniqueId: this.uniqueId,
         time: new Date(),
         phase: phase,
         actualDuration: actualDuration,

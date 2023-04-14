@@ -29,6 +29,7 @@ const config: ObservareConfig = {
 After creating a project, make sure you have a table which matches this schema:
 ```typescript
 export interface BrowserLog {
+  uniqueId: String;
   time: Date;
   phase: String;
   actualDuration: number;
@@ -38,4 +39,36 @@ export interface BrowserLog {
   path: String;
   domain: String;
 }
+```
+
+# Advanced Usage
+### Unique IDs:
+To Identify Requests from Users, one can use `uniqueId` which defaults to a randomly generated `UUID` that persists in storage for future identifications. You can also provide your own `uniqueId` by passing it in the `config` object or even by storing it in the `localStorage` with the key `observare_uniqueId`.
+Example:
+```typescript
+const config: ObservareConfig = {
+    retry: true,
+    eager: false, // don't do `eager` in production
+    maxLogs: 15, // defaults to 15
+    isSupabase: true,
+    uniqueId: getUserEmail(), // get the user's email.
+    supabaseConfig: {
+        url: '<supabase url>',
+        key: '<supabase key>',
+        table: 'logs' // set your table name
+    }
+};
+```
+
+Incase the user is not logged in during first load, you can do it once user has been authenticated by using the setUniqueId function exported by the package:
+// TODO: not implemented YET
+```typescript
+import { setUniqueId } from 'observare-react';
+
+setUniqueId('abc@xyz.com');
+```
+
+Or you can also set it in the localStorage with the key `observare_uniqueId`.
+```typescript
+localStorage.setItem('observare_uniqueId', 'abc@xyz.com')'
 ```
